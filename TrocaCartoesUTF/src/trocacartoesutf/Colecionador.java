@@ -29,7 +29,7 @@ public class Colecionador {
         return colecao;
     }
     
-    public boolean trocarCartoes(InterfaceCli cli, String carta){
+    public boolean trocarCartoes(InterfaceCol cli, String carta){
         return false;
     }
     

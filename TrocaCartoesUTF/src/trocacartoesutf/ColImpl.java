@@ -13,9 +13,9 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author Mayko
  */
-public class CliImpl extends UnicastRemoteObject implements InterfaceCli{
+public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
 
-    public CliImpl() throws RemoteException{
+    public ColImpl() throws RemoteException{
         
     }
 
@@ -25,7 +25,7 @@ public class CliImpl extends UnicastRemoteObject implements InterfaceCli{
     }
 
     @Override
-    public boolean trocarCartoes(InterfaceCli cli, Carta card) throws RemoteException {
+    public boolean trocarCartoes(InterfaceCol cli, Carta card) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
