@@ -5,12 +5,13 @@
  */
 package trocacartoesutf.gerente;
 
-import java.lang.reflect.Array;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import trocacartoesutf.interfaces.InterfaceCol;
 import trocacartoesutf.interfaces.InterfaceGer;
 
@@ -21,9 +22,11 @@ import trocacartoesutf.interfaces.InterfaceGer;
 public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runnable{
     
     public static ArrayList<ColecionadorGer> listaColecionadores;
+    public static Map<String, ColecionadorGer> ColecionadorMap;
     
     public GerImpl() throws RemoteException{
         listaColecionadores = new ArrayList<>();
+        ColecionadorMap = new HashMap<String, ColecionadorGer>();
     }
 
     @Override
@@ -32,17 +35,14 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
         int i = 0;
         
         for(ColecionadorGer colGer:listaColecionadores){
-            System.out.println(colecoes[i]);
-            colecoes[i] = colGer.cartaA.getNomeCarta();
+            colecoes[i] = colGer.getCartaA().getNomeCarta()+"-"+colGer.getNomeCol();
             i++;
-            System.out.println(colecoes[i]);
-            colecoes[i] = colGer.cartaB.getNomeCarta();
+            colecoes[i] = colGer.getCartaB().getNomeCarta()+"-"+colGer.getNomeCol();
             i++;
-            System.out.println(colecoes[i]);
-            colecoes[i] = colGer.cartaC.getNomeCarta();
+            colecoes[i] = colGer.getCartaC().getNomeCarta()+"-"+colGer.getNomeCol();
             i++;
         }
-        
+                
         return colecoes;
     }
 
@@ -70,6 +70,7 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
     public void registrarColecionador(InterfaceCol ref, String A, String B, String C) throws RemoteException {
         ColecionadorGer col = new ColecionadorGer(ref, A, B, C);
         listaColecionadores.add(col);
+        ColecionadorMap.put(col.getNomeCol(), col);
     }
     
 }
