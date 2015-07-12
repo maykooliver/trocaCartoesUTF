@@ -5,17 +5,36 @@
  */
 package trocacartoesutf;
 
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import trocacartoesutf.interfaces.InterfaceGer;
+
 /**
  *
  * @author Mayko
  */
 public class ColecionadorView extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form ColecionadorView
      */
     public ColecionadorView() {
         initComponents();
+        
+        String[] colecao = ColImpl.col.consultaColecao();
+        
+        cartasCombo.removeAllItems();
+        cartasCombo.addItem(colecao[0]);
+        cartasCombo.addItem(colecao[1]);
+        cartasCombo.addItem(colecao[2]);
+        
+        cartasCasadasCombo.removeAllItems();
+        cartasCasadasCombo.addItem(colecao[0]);
+        cartasCasadasCombo.addItem(colecao[1]);
+        cartasCasadasCombo.addItem(colecao[2]);
+        
     }
 
     /**
@@ -30,15 +49,13 @@ public class ColecionadorView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cartasCombo = new javax.swing.JComboBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listTodasCarta1 = new javax.swing.JList();
         btnConsultarCartas = new javax.swing.JButton();
         btnTrocarCartas = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        listTodasCarta2 = new javax.swing.JList();
         btnTrocarCartasCasadas = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         cartasCasadasCombo = new javax.swing.JComboBox();
+        colecaoTerceiros = new javax.swing.JComboBox();
+        colecaoCasadaTerceiros = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,31 +64,31 @@ public class ColecionadorView extends javax.swing.JFrame {
 
         jLabel2.setText("Cartas Colecionadas:");
 
-        cartasCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        listTodasCarta1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listTodasCarta1);
+        cartasCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartas do colecionador." }));
 
         btnConsultarCartas.setText("Consultar todas as Cartas");
+        btnConsultarCartas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarCartasActionPerformed(evt);
+            }
+        });
 
         btnTrocarCartas.setText("Trocar Cartas");
-
-        listTodasCarta2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(listTodasCarta2);
 
         btnTrocarCartasCasadas.setText("Troca Casada");
 
         jLabel3.setText("Cartas Colecionadas:");
 
-        cartasCasadasCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cartasCasadasCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartas do colecionador." }));
+
+        colecaoTerceiros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartas de Terceiros" }));
+        colecaoTerceiros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colecaoTerceirosActionPerformed(evt);
+            }
+        });
+
+        colecaoCasadaTerceiros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartas de Terceiros." }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,19 +97,19 @@ public class ColecionadorView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
                     .addComponent(cartasCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(btnConsultarCartas, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                    .addComponent(btnTrocarCartas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnConsultarCartas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTrocarCartas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(colecaoTerceiros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(130, 130, 130)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
-                    .addComponent(cartasCasadasCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3)
-                    .addComponent(btnTrocarCartasCasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(colecaoCasadaTerceiros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cartasCasadasCombo, 0, 159, Short.MAX_VALUE)
+                    .addComponent(btnTrocarCartasCasadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,9 +120,7 @@ public class ColecionadorView extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cartasCasadasCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(197, 197, 197)
                         .addComponent(btnTrocarCartasCasadas))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -116,14 +131,40 @@ public class ColecionadorView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnConsultarCartas)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(colecaoCasadaTerceiros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colecaoTerceiros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(118, 118, 118)
                         .addComponent(btnTrocarCartas)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConsultarCartasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarCartasActionPerformed
+           
+        String[] colecoesDeTerceiros = null;
+        
+        try {
+            colecoesDeTerceiros = ColImpl.refGer.consultarColecoes();
+        } catch (RemoteException ex) {
+            Logger.getLogger(ColecionadorView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        colecaoTerceiros.removeAllItems();
+        colecaoCasadaTerceiros.removeAllItems();
+        
+        for(String cartaTerceiros:colecoesDeTerceiros){
+            colecaoTerceiros.addItem(cartaTerceiros);
+            colecaoCasadaTerceiros.addItem(cartaTerceiros);
+        }
+        
+    }//GEN-LAST:event_btnConsultarCartasActionPerformed
+
+    private void colecaoTerceirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colecaoTerceirosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_colecaoTerceirosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,12 +207,10 @@ public class ColecionadorView extends javax.swing.JFrame {
     private javax.swing.JButton btnTrocarCartasCasadas;
     private javax.swing.JComboBox cartasCasadasCombo;
     private javax.swing.JComboBox cartasCombo;
+    private javax.swing.JComboBox colecaoCasadaTerceiros;
+    private javax.swing.JComboBox colecaoTerceiros;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList listTodasCarta1;
-    private javax.swing.JList listTodasCarta2;
     // End of variables declaration//GEN-END:variables
 }

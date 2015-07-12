@@ -5,6 +5,8 @@
  */
 package trocacartoesutf;
 
+import trocacartoesutf.interfaces.InterfaceGer;
+import trocacartoesutf.gerente.GerImpl;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -25,16 +27,19 @@ public class TrocaCartoesUTF {
     public static void main(String[] args) throws RemoteException, NotBoundException {
 
                 
-        InterfaceGer refGer;
+        InterfaceGer refGer = null;
         
         Registry referenciaServicoNomes;
         
         referenciaServicoNomes = LocateRegistry.getRegistry("localhost", 1099);
+        
+        boolean gerAtivo = false;
+        
         try
         {
+            /* Verifica se o gerente já está ativo */
             refGer = (InterfaceGer) referenciaServicoNomes.lookup("Troca de Cartas");
-            ColImpl colecionador = new ColImpl();
-            System.out.println("Colecionador Criado");
+            gerAtivo = true;
             
         }catch(RemoteException e){
             
@@ -46,18 +51,15 @@ public class TrocaCartoesUTF {
             System.out.println("Gerente Criado");
             
         }
-       
-        ColecionadorView colecionador = new ColecionadorView();
-        colecionador.setVisible(true);
         
-
-            
-            
-            //SE NAO EXISTIR, CRIA SERVICO DE NOMES, E SE TORNA GERENTE
-            
-            //FAZ O BIND (SE REGISTRA) NO SERVICO DE NOMES
-            
-            //FAZ O LOOK UP
+        /* Verifica se o gerente está ativo. Se o gerente já estava ativo
+        anteriormente, não acessa o 'if'.*/
+        if(!gerAtivo){
+            refGer = (InterfaceGer) referenciaServicoNomes.lookup("Troca de Cartas");
+        }
+        
+        ColImpl colecionador = new ColImpl(refGer);
+        System.out.println("Colecionador Criado");
 
     }
     

@@ -5,6 +5,7 @@
  */
 package trocacartoesutf;
 
+import trocacartoesutf.interfaces.InterfaceCol;
 import java.lang.reflect.Array;
 
 /**
@@ -13,19 +14,22 @@ import java.lang.reflect.Array;
  */
 public class Colecionador {
 
+    private Carta A;
+    private Carta B;
+    private Carta C;
+    
     public Colecionador() {
-        Carta a,b,c;
-        
-        a = new Carta("A");
-        b = new Carta("B");
-        c = new Carta("C");       
-        
+        A = new Carta("A");
+        B = new Carta("B");
+        C = new Carta("C");       
     }
     
     
-    public Array consultaColecao(){
-        Array colecao = null;
-        
+    public String[] consultaColecao(){
+        String[] colecao = new String[3];
+        colecao[0] = A.getNomeCarta();
+        colecao[1] = B.getNomeCarta();
+        colecao[2] = C.getNomeCarta();
         return colecao;
     }
     

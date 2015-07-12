@@ -5,6 +5,8 @@
  */
 package trocacartoesutf;
 
+import trocacartoesutf.interfaces.InterfaceCol;
+import trocacartoesutf.interfaces.InterfaceGer;
 import java.lang.reflect.Array;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -15,8 +17,22 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
 
-    public ColImpl() throws RemoteException{
+    public static Colecionador col;
+    public static InterfaceGer refGer;
+    
+    public ColImpl(InterfaceGer ref) throws RemoteException{        
         
+        refGer = ref;
+        
+        col = new Colecionador();
+        
+        String[] cartas = col.consultaColecao();
+        
+        ref.registrarColecionador(this, cartas[0], cartas[1], cartas[2]);
+        
+        ColecionadorView colecionador = new ColecionadorView();
+        
+        colecionador.setVisible(true);
     }
 
     @Override
