@@ -6,7 +6,6 @@
 package trocacartoesutf;
 
 import trocacartoesutf.interfaces.InterfaceCol;
-import java.lang.reflect.Array;
 
 /**
  *
@@ -14,27 +13,85 @@ import java.lang.reflect.Array;
  */
 public class Colecionador {
 
-    private Carta A;
-    private Carta B;
-    private Carta C;
+    private String nomeCol;
+    private Carta cartaA;
+    private Carta cartaB;
+    private Carta cartaC;
     
     public Colecionador() {
-        A = new Carta("A");
-        B = new Carta("B");
-        C = new Carta("C");       
+        nomeCol = null;
+        cartaA = new Carta("A");
+        cartaB = new Carta("B");
+        cartaC = new Carta("C");       
     }
     
     
     public String[] consultaColecao(){
         String[] colecao = new String[3];
-        colecao[0] = A.getNomeCarta();
-        colecao[1] = B.getNomeCarta();
-        colecao[2] = C.getNomeCarta();
+        colecao[0] = getCartaA().getNomeCarta();
+        colecao[1] = getCartaB().getNomeCarta();
+        colecao[2] = getCartaC().getNomeCarta();
         return colecao;
     }
     
     public boolean trocarCartoes(InterfaceCol cli, String carta){
         return false;
+    }
+
+    /**
+     * @return the nomeCol
+     */
+    public String getNomeCol() {
+        return nomeCol;
+    }
+
+    /**
+     * @param nomeCol the nomeCol to set
+     */
+    public void setNomeCol(String nomeCol) {
+        this.nomeCol = nomeCol;
+    }  
+
+    /**
+     * @return the cartaA
+     */
+    public Carta getCartaA() {
+        return cartaA;
+    }
+
+    /**
+     * @param cartaA the cartaA to set
+     */
+    public void setCartaA(Carta cartaA) {
+        this.cartaA = cartaA;
+    }
+
+    /**
+     * @return the cartaB
+     */
+    public Carta getCartaB() {
+        return cartaB;
+    }
+
+    /**
+     * @param cartaB the cartaB to set
+     */
+    public void setCartaB(Carta cartaB) {
+        this.cartaB = cartaB;
+    }
+
+    /**
+     * @return the cartaC
+     */
+    public Carta getCartaC() {
+        return cartaC;
+    }
+
+    /**
+     * @param cartaC the cartaC to set
+     */
+    public void setCartaC(Carta cartaC) {
+        this.cartaC = cartaC;
     }
     
 }

@@ -5,8 +5,6 @@
  */
 package trocacartoesutf.gerente;
 
-import trocacartoesutf.*;
-
 /**
  *
  * @author Mayko

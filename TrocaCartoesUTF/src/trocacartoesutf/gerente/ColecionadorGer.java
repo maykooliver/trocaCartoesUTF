@@ -69,7 +69,6 @@ public class ColecionadorGer {
     @Override
     public String toString() {
         return "ColecionadorGer{" + "refCol=" + refCol + '}';
-    }
-    
+    } 
     
 }

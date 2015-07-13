@@ -26,14 +26,14 @@ public class ColecionadorView extends javax.swing.JFrame {
         String[] colecao = ColImpl.col.consultaColecao();
         
         cartasCombo.removeAllItems();
-        cartasCombo.addItem(colecao[0]);
-        cartasCombo.addItem(colecao[1]);
-        cartasCombo.addItem(colecao[2]);
+        cartasCombo.addItem(colecao[0]+"-"+ColImpl.nomeCol);
+        cartasCombo.addItem(colecao[1]+"-"+ColImpl.nomeCol);
+        cartasCombo.addItem(colecao[2]+"-"+ColImpl.nomeCol);
         
         cartasCasadasCombo.removeAllItems();
-        cartasCasadasCombo.addItem(colecao[0]);
-        cartasCasadasCombo.addItem(colecao[1]);
-        cartasCasadasCombo.addItem(colecao[2]);
+        cartasCasadasCombo.addItem(colecao[0]+"-"+ColImpl.nomeCol);
+        cartasCasadasCombo.addItem(colecao[1]+"-"+ColImpl.nomeCol);
+        cartasCasadasCombo.addItem(colecao[2]+"-"+ColImpl.nomeCol);
         
     }
 
@@ -74,6 +74,11 @@ public class ColecionadorView extends javax.swing.JFrame {
         });
 
         btnTrocarCartas.setText("Trocar Cartas");
+        btnTrocarCartas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrocarCartasActionPerformed(evt);
+            }
+        });
 
         btnTrocarCartasCasadas.setText("Troca Casada");
 
@@ -165,6 +170,19 @@ public class ColecionadorView extends javax.swing.JFrame {
     private void colecaoTerceirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colecaoTerceirosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_colecaoTerceirosActionPerformed
+
+    private void btnTrocarCartasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrocarCartasActionPerformed
+        String cartaCol = cartasCombo.getSelectedItem().toString();
+        String cartaTerc = colecaoTerceiros.getSelectedItem().toString();
+        
+        boolean resultadoTroca;
+        
+        try {
+            resultadoTroca = ColImpl.refGer.trocaSimples(cartaCol, cartaTerc);
+        } catch (RemoteException ex) {
+            Logger.getLogger(ColecionadorView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnTrocarCartasActionPerformed
 
     /**
      * @param args the command line arguments

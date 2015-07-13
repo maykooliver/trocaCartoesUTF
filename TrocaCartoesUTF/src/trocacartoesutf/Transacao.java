@@ -12,12 +12,30 @@ package trocacartoesutf;
 public class Transacao {
     
     private int id;
-    
-    public boolean ativar(){
-        return false;
+    private String status;
+
+    public Transacao(int id) {
+        this.id = id;
+        this.ativar();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
-    public boolean efetivar(){
+    public void ativar(){
+        this.status = "Ativado";
+    }
+    
+    public boolean efetivado(){
         return false;
     }
         
@@ -26,6 +44,10 @@ public class Transacao {
     }
 
     public boolean efetivarTemp(){
+        return false;
+    }
+    
+    public boolean falha(){
         return false;
     }
 
