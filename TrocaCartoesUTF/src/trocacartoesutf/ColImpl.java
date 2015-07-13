@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import static trocacartoesutf.Colecionador.A;
+import static trocacartoesutf.Colecionador.B;
+import static trocacartoesutf.Colecionador.C;
 
 /**
  *
@@ -65,17 +68,17 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     @Override
     public boolean trocarCartoes(String cartaTrocada, String cartaRecebida) throws RemoteException {
         
-        if(cartaTrocada.equals("A")){
+        if(cartaTrocada.equals(A)){
             col.getCartaUm().setNomeCarta(cartaRecebida);
-            System.out.println("Carta A Trocada");
+            System.out.println("Carta "+A+" Trocada");
             return true;
-        }else if(cartaTrocada.equals("B")){
+        }else if(cartaTrocada.equals(B)){
             col.getCartaDois().setNomeCarta(cartaRecebida);
-            System.out.println("Carta B Trocada");
+            System.out.println("Carta "+B+" Trocada");
             return true;
-        }else if(cartaTrocada.equals("C")){
+        }else if(cartaTrocada.equals(C)){
             col.getCartaTres().setNomeCarta(cartaRecebida);
-            System.out.println("Carta C Trocada");
+            System.out.println("Carta "+C+" Trocada");
             return true;
         }else{
             return false;
@@ -86,17 +89,17 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     @Override
     public boolean bloquearCarta(String carta) throws RemoteException {
         
-        if(carta.equals("A")){
+        if(carta.equals(A)){
             col.getCartaUm().setBloqueado(true);
-            System.out.println("Carta A Bloqueada");
+            System.out.println("Carta "+A+" Bloqueada");
             return true;
-        }else if(carta.equals("B")){
+        }else if(carta.equals(B)){
             col.getCartaDois().setBloqueado(true);
-            System.out.println("Carta B Bloqueada");
+            System.out.println("Carta "+B+" Bloqueada");
             return true;
         }else{
             col.getCartaTres().setBloqueado(true);
-            System.out.println("Carta C Bloqueada");
+            System.out.println("Carta "+C+" Bloqueada");
             return true;
         }
 
@@ -112,30 +115,34 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     }
 
     @Override
-    public void efetivarTempTrans(int numeroTrans) throws RemoteException {
+    public boolean efetivarTempTrans(int numeroTrans) throws RemoteException {
         Transacao trans = TransacaoMap.get(numeroTrans);
         trans.efetivarTemp();
+        return true;
     }
 
     @Override
-    public void efetivarTrans(int numeroTrans) throws RemoteException {
+    public boolean efetivarTrans(int numeroTrans) throws RemoteException {
         Transacao trans = TransacaoMap.get(numeroTrans);
         trans.efetivar();
         System.out.println("\n################################################\n");
         System.out.println("\tTransação "+ numeroTrans +" efetivada");
         System.out.println("\n################################################\n");
+        return true;
     }
 
     @Override
-    public void abortarTrans(int numeroTrans) throws RemoteException {
+    public boolean abortarTrans(int numeroTrans) throws RemoteException {
         Transacao trans = TransacaoMap.get(numeroTrans);
         trans.abortar();
+        return true;
     }
 
     @Override
-    public void falhaTrans(int numeroTrans) throws RemoteException {
+    public boolean falhaTrans(int numeroTrans) throws RemoteException {
         Transacao trans = TransacaoMap.get(numeroTrans);
         trans.falha();
+        return true;
     }
 
     @Override
@@ -157,21 +164,18 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     @Override
     public boolean isBloqueadoCarta(String Y) throws RemoteException {
         
-        if(Y.equals("A")){
+        if(Y.equals(A)){
             if(col.getCartaUm().isBloqueado()){
-                System.out.println("É A");
                 return true;
             }
             return false;
-        }else if(Y.equals("B")){
+        }else if(Y.equals(B)){
             if(col.getCartaDois().isBloqueado()){
-                System.out.println("É B");
                 return true;
             }
             return false;
         }else{
             if(col.getCartaTres().isBloqueado()){
-                System.out.println("É C");
                 return true;
             }
             return false;
@@ -182,15 +186,15 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     @Override
     public void desBloquearCarta(String carta) throws RemoteException {
         
-        if(carta.equals("A")){
+        if(carta.equals(A)){
             col.getCartaUm().setBloqueado(false);
-            System.out.println("Carta A desbloqueada");
-        }else if(carta.equals("B")){
+            System.out.println("Carta "+A+" desbloqueada");
+        }else if(carta.equals(B)){
             col.getCartaDois().setBloqueado(false);
-            System.out.println("Carta B desbloqueada");
+            System.out.println("Carta "+B+" desbloqueada");
         }else{
             col.getCartaTres().setBloqueado(false);
-            System.out.println("Carta C desbloqueada");
+            System.out.println("Carta "+C+" desbloqueada");
         }
         
     }

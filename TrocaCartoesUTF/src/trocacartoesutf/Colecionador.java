@@ -17,12 +17,15 @@ public class Colecionador {
     private Carta cartaUm;
     private Carta cartaDois;
     private Carta cartaTres;
+    public static final String A = "Paris";
+    public static final String B = "Luxemburgo";
+    public static final String C = "Madri";
     
     public Colecionador() {
         nomeCol = null;
-        cartaUm = new Carta("A");
-        cartaDois = new Carta("B");
-        cartaTres = new Carta("C");       
+        cartaUm = new Carta(A);
+        cartaDois = new Carta(B);
+        cartaTres = new Carta(C);       
     }
     
     

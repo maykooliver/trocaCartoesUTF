@@ -34,13 +34,13 @@ public interface InterfaceCol extends Remote {
     
     public int ativarTrans() throws RemoteException;
     
-    public void efetivarTempTrans(int numeroTrans) throws RemoteException;
+    public boolean efetivarTempTrans(int numeroTrans) throws RemoteException;
     
-    public void efetivarTrans(int numeroTrans) throws RemoteException;
+    public boolean efetivarTrans(int numeroTrans) throws RemoteException;
     
-    public void abortarTrans(int numeroTrans) throws RemoteException;
+    public boolean abortarTrans(int numeroTrans) throws RemoteException;
     
-    public void falhaTrans(int numeroTrans) throws RemoteException;
+    public boolean falhaTrans(int numeroTrans) throws RemoteException;
     
     public boolean isBloqueadoCarta(String Y) throws RemoteException;
     

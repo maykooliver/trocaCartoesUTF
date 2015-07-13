@@ -16,8 +16,8 @@ import java.util.logging.Logger;
 public class TrocaSimples implements Runnable{
 
     private boolean resultadoTroca;
-    private String cartaCol;
-    private String cartaTerc;
+    private final String cartaCol;
+    private final String cartaTerc;
 
     public TrocaSimples(String cartaCol, String cartaTerc) {
         this.cartaCol = cartaCol;

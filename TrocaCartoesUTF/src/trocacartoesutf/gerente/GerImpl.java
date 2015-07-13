@@ -43,14 +43,19 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
     public String[] consultarColecoes() throws RemoteException {
         String[] colecoes = new String[listaColecionadores.size()*3];
         int i = 0;
+        int indexCol = 0;
         
         for(ColecionadorGer colGer:listaColecionadores){
-            colecoes[i] = colGer.getRefCol().getNomeCartaUm()+"-"+colGer.getNomeCol();
-            i++;
-            colecoes[i] = colGer.getRefCol().getNomeCartaDois()+"-"+colGer.getNomeCol();
-            i++;
-            colecoes[i] = colGer.getRefCol().getNomeCartaTres()+"-"+colGer.getNomeCol();
-            i++;
+            try {
+                colecoes[i] = colGer.getRefCol().getNomeCartaUm() + "-" + colGer.getNomeCol();
+                i++;
+                colecoes[i] = colGer.getRefCol().getNomeCartaDois() + "-" + colGer.getNomeCol();
+                i++;
+                colecoes[i] = colGer.getRefCol().getNomeCartaTres() + "-" + colGer.getNomeCol();
+                i++;
+            } catch (RemoteException remoteException) {
+                System.out.println("Um dos colecionadores registrados está inativo");
+            }
         }
                 
         return colecoes;
