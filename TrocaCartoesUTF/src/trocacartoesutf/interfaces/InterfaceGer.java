@@ -17,7 +17,7 @@ import trocacartoesutf.gerente.ColecionadorGer;
  */
 public interface InterfaceGer extends Remote{
     
-    public String registrarColecionador(InterfaceCol ref, String A, String B, String C) throws RemoteException;
+    public String registrarColecionador(InterfaceCol ref) throws RemoteException;
     
     public String[] consultarColecoes() throws RemoteException;
     

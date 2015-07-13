@@ -14,23 +14,23 @@ import trocacartoesutf.interfaces.InterfaceCol;
 public class Colecionador {
 
     private String nomeCol;
-    private Carta cartaA;
-    private Carta cartaB;
-    private Carta cartaC;
+    private Carta cartaUm;
+    private Carta cartaDois;
+    private Carta cartaTres;
     
     public Colecionador() {
         nomeCol = null;
-        cartaA = new Carta("A");
-        cartaB = new Carta("B");
-        cartaC = new Carta("C");       
+        cartaUm = new Carta("A");
+        cartaDois = new Carta("B");
+        cartaTres = new Carta("C");       
     }
     
     
     public String[] consultaColecao(){
         String[] colecao = new String[3];
-        colecao[0] = getCartaA().getNomeCarta();
-        colecao[1] = getCartaB().getNomeCarta();
-        colecao[2] = getCartaC().getNomeCarta();
+        colecao[0] = getCartaUm().getNomeCarta();
+        colecao[1] = getCartaDois().getNomeCarta();
+        colecao[2] = getCartaTres().getNomeCarta();
         return colecao;
     }
     
@@ -53,45 +53,45 @@ public class Colecionador {
     }  
 
     /**
-     * @return the cartaA
+     * @return the cartaUm
      */
-    public Carta getCartaA() {
-        return cartaA;
+    public Carta getCartaUm() {
+        return cartaUm;
     }
 
     /**
-     * @param cartaA the cartaA to set
+     * @param cartaA the cartaUm to set
      */
-    public void setCartaA(Carta cartaA) {
-        this.cartaA = cartaA;
+    public void setCartaUm(Carta cartaA) {
+        this.cartaUm = cartaA;
     }
 
     /**
-     * @return the cartaB
+     * @return the cartaDois
      */
-    public Carta getCartaB() {
-        return cartaB;
+    public Carta getCartaDois() {
+        return cartaDois;
     }
 
     /**
-     * @param cartaB the cartaB to set
+     * @param cartaDois the cartaDois to set
      */
-    public void setCartaB(Carta cartaB) {
-        this.cartaB = cartaB;
+    public void setCartaDois(Carta cartaDois) {
+        this.cartaDois = cartaDois;
     }
 
     /**
-     * @return the cartaC
+     * @return the cartaTres
      */
-    public Carta getCartaC() {
-        return cartaC;
+    public Carta getCartaTres() {
+        return cartaTres;
     }
 
     /**
-     * @param cartaC the cartaC to set
+     * @param cartaTres the cartaTres to set
      */
-    public void setCartaC(Carta cartaC) {
-        this.cartaC = cartaC;
+    public void setCartaTres(Carta cartaTres) {
+        this.cartaTres = cartaTres;
     }
     
 }

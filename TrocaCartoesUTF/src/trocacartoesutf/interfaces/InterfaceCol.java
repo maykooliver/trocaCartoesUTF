@@ -18,21 +18,29 @@ public interface InterfaceCol extends Remote {
     
     public Array consultaColecao() throws RemoteException;
     
-    public boolean trocarCartoes(InterfaceCol cli, Carta card) throws RemoteException;
+    public String getNomeCartaUm() throws RemoteException;
+    
+    public String getNomeCartaDois() throws RemoteException;
+    
+    public String getNomeCartaTres() throws RemoteException;
+    
+    public boolean trocarCartoes(String cartaTrocada, String cartaRecebida) throws RemoteException;
     
     public boolean verificaAceite(String cartaCol, String cartaTer) throws RemoteException;
     
-    public boolean bloquearCarta() throws RemoteException;
+    public boolean bloquearCarta(String carta) throws RemoteException;
+    
+    public void desBloquearCarta(String carta) throws RemoteException;
     
     public int ativarTrans() throws RemoteException;
     
-    public boolean efetivarTempTrans(int numeroTrans) throws RemoteException;
+    public void efetivarTempTrans(int numeroTrans) throws RemoteException;
     
-    public boolean efetivarTrans(int numeroTrans) throws RemoteException;
+    public void efetivarTrans(int numeroTrans) throws RemoteException;
     
-    public boolean abortarTrans(int numeroTrans) throws RemoteException;
+    public void abortarTrans(int numeroTrans) throws RemoteException;
     
-    public boolean falhaTrans(int numeroTrans) throws RemoteException;
+    public void falhaTrans(int numeroTrans) throws RemoteException;
     
     public boolean isBloqueadoCarta(String Y) throws RemoteException;
     

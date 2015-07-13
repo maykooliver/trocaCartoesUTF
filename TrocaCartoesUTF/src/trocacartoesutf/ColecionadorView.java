@@ -56,6 +56,7 @@ public class ColecionadorView extends javax.swing.JFrame {
         cartasCasadasCombo = new javax.swing.JComboBox();
         colecaoTerceiros = new javax.swing.JComboBox();
         colecaoCasadaTerceiros = new javax.swing.JComboBox();
+        btnAtualizarCartas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +96,13 @@ public class ColecionadorView extends javax.swing.JFrame {
 
         colecaoCasadaTerceiros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartas de Terceiros." }));
 
+        btnAtualizarCartas.setText("Atualizar");
+        btnAtualizarCartas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarCartasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,39 +116,43 @@ public class ColecionadorView extends javax.swing.JFrame {
                     .addComponent(btnConsultarCartas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnTrocarCartas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(colecaoTerceiros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(130, 130, 130)
+                .addGap(29, 29, 29)
+                .addComponent(btnAtualizarCartas)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
                     .addComponent(colecaoCasadaTerceiros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cartasCasadasCombo, 0, 159, Short.MAX_VALUE)
                     .addComponent(btnTrocarCartasCasadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cartasCasadasCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(197, 197, 197)
-                        .addComponent(btnTrocarCartasCasadas))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cartasCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnConsultarCartas)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(colecaoCasadaTerceiros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(colecaoTerceiros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(118, 118, 118)
-                        .addComponent(btnTrocarCartas)))
+                    .addComponent(btnAtualizarCartas, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cartasCasadasCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(197, 197, 197)
+                            .addComponent(btnTrocarCartasCasadas))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cartasCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnConsultarCartas)
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(colecaoCasadaTerceiros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(colecaoTerceiros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(118, 118, 118)
+                            .addComponent(btnTrocarCartas))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -174,15 +186,46 @@ public class ColecionadorView extends javax.swing.JFrame {
     private void btnTrocarCartasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrocarCartasActionPerformed
         String cartaCol = cartasCombo.getSelectedItem().toString();
         String cartaTerc = colecaoTerceiros.getSelectedItem().toString();
+
+        TrocaSimples troca = new TrocaSimples(cartaCol, cartaTerc);
+        Thread trocaThread = new Thread(troca);
+        trocaThread.start();
+    }//GEN-LAST:event_btnTrocarCartasActionPerformed
+
+    private void btnAtualizarCartasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarCartasActionPerformed
         
-        boolean resultadoTroca;
+        /*Atualiza as cartas do colecionador*/
+        String[] colecao = ColImpl.col.consultaColecao();
+        
+        cartasCombo.removeAllItems();
+        cartasCombo.addItem(colecao[0]+"-"+ColImpl.nomeCol);
+        cartasCombo.addItem(colecao[1]+"-"+ColImpl.nomeCol);
+        cartasCombo.addItem(colecao[2]+"-"+ColImpl.nomeCol);
+        
+        cartasCasadasCombo.removeAllItems();
+        cartasCasadasCombo.addItem(colecao[0]+"-"+ColImpl.nomeCol);
+        cartasCasadasCombo.addItem(colecao[1]+"-"+ColImpl.nomeCol);
+        cartasCasadasCombo.addItem(colecao[2]+"-"+ColImpl.nomeCol);
+        
+        
+        /*Atualiza todas as cartas que estão no servidor*/
+        String[] colecoesDeTerceiros = null;
         
         try {
-            resultadoTroca = ColImpl.refGer.trocaSimples(cartaCol, cartaTerc);
+            colecoesDeTerceiros = ColImpl.refGer.consultarColecoes();
         } catch (RemoteException ex) {
             Logger.getLogger(ColecionadorView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnTrocarCartasActionPerformed
+        
+        colecaoTerceiros.removeAllItems();
+        colecaoCasadaTerceiros.removeAllItems();
+        
+        for(String cartaTerceiros:colecoesDeTerceiros){
+            colecaoTerceiros.addItem(cartaTerceiros);
+            colecaoCasadaTerceiros.addItem(cartaTerceiros);
+        }
+        
+    }//GEN-LAST:event_btnAtualizarCartasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,6 +263,7 @@ public class ColecionadorView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizarCartas;
     private javax.swing.JButton btnConsultarCartas;
     private javax.swing.JButton btnTrocarCartas;
     private javax.swing.JButton btnTrocarCartasCasadas;

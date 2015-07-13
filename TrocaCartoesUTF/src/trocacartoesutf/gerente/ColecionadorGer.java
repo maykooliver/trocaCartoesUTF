@@ -16,18 +16,12 @@ public class ColecionadorGer {
 
     private String nomeCol;
     private InterfaceCol refCol;
-    private CartaGer cartaA;
-    private CartaGer cartaB;
-    private CartaGer cartaC;
 
-    public ColecionadorGer(InterfaceCol refCol, String A, String B, String C) {
+    public ColecionadorGer(InterfaceCol refCol) {
         Random numeroCli = new Random();
         int num = numeroCli.nextInt(1000);
         nomeCol = "Col " + num;
         this.refCol = refCol;
-        cartaA = new CartaGer(A);
-        cartaB = new CartaGer(B);
-        cartaC = new CartaGer(C);
     }
 
     public String getNomeCol() {
@@ -40,30 +34,6 @@ public class ColecionadorGer {
 
     public void setRefCol(InterfaceCol refCol) {
         this.refCol = refCol;
-    }
-
-    public CartaGer getCartaA() {
-        return cartaA;
-    }
-
-    public void setCartaA(CartaGer cartaA) {
-        this.cartaA = cartaA;
-    }
-
-    public CartaGer getCartaB() {
-        return cartaB;
-    }
-
-    public void setCartaB(CartaGer cartaB) {
-        this.cartaB = cartaB;
-    }
-
-    public CartaGer getCartaC() {
-        return cartaC;
-    }
-
-    public void setCartaC(CartaGer cartaC) {
-        this.cartaC = cartaC;
     }
 
     @Override

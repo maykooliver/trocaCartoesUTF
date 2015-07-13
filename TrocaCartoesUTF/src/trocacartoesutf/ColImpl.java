@@ -38,9 +38,7 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
         
         col = new Colecionador();
         
-        String[] cartas = col.consultaColecao();
-
-        nomeCol = ref.registrarColecionador(this, cartas[0], cartas[1], cartas[2]);
+        nomeCol = ref.registrarColecionador(this);
                 
         col.setNomeCol(nomeCol);
         
@@ -65,13 +63,43 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     }
 
     @Override
-    public boolean trocarCartoes(InterfaceCol cli, Carta card) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean trocarCartoes(String cartaTrocada, String cartaRecebida) throws RemoteException {
+        
+        if(cartaTrocada.equals("A")){
+            col.getCartaUm().setNomeCarta(cartaRecebida);
+            System.out.println("Carta A Trocada");
+            return true;
+        }else if(cartaTrocada.equals("B")){
+            col.getCartaDois().setNomeCarta(cartaRecebida);
+            System.out.println("Carta B Trocada");
+            return true;
+        }else if(cartaTrocada.equals("C")){
+            col.getCartaTres().setNomeCarta(cartaRecebida);
+            System.out.println("Carta C Trocada");
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     @Override
-    public boolean bloquearCarta() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean bloquearCarta(String carta) throws RemoteException {
+        
+        if(carta.equals("A")){
+            col.getCartaUm().setBloqueado(true);
+            System.out.println("Carta A Bloqueada");
+            return true;
+        }else if(carta.equals("B")){
+            col.getCartaDois().setBloqueado(true);
+            System.out.println("Carta B Bloqueada");
+            return true;
+        }else{
+            col.getCartaTres().setBloqueado(true);
+            System.out.println("Carta C Bloqueada");
+            return true;
+        }
+
     }
 
     @Override
@@ -84,25 +112,30 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     }
 
     @Override
-    public boolean efetivarTempTrans(int numeroTrans) throws RemoteException {
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void efetivarTempTrans(int numeroTrans) throws RemoteException {
+        Transacao trans = TransacaoMap.get(numeroTrans);
+        trans.efetivarTemp();
     }
 
     @Override
-    public boolean efetivarTrans(int numeroTrans) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void efetivarTrans(int numeroTrans) throws RemoteException {
+        Transacao trans = TransacaoMap.get(numeroTrans);
+        trans.efetivar();
+        System.out.println("\n################################################\n");
+        System.out.println("\tTransação "+ numeroTrans +" efetivada");
+        System.out.println("\n################################################\n");
     }
 
     @Override
-    public boolean abortarTrans(int numeroTrans) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void abortarTrans(int numeroTrans) throws RemoteException {
+        Transacao trans = TransacaoMap.get(numeroTrans);
+        trans.abortar();
     }
 
     @Override
-    public boolean falhaTrans(int numeroTrans) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void falhaTrans(int numeroTrans) throws RemoteException {
+        Transacao trans = TransacaoMap.get(numeroTrans);
+        trans.falha();
     }
 
     @Override
@@ -125,25 +158,56 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     public boolean isBloqueadoCarta(String Y) throws RemoteException {
         
         if(Y.equals("A")){
-            if(col.getCartaA().isBloqueado()){
+            if(col.getCartaUm().isBloqueado()){
                 System.out.println("É A");
                 return true;
             }
             return false;
         }else if(Y.equals("B")){
-            if(col.getCartaB().isBloqueado()){
+            if(col.getCartaDois().isBloqueado()){
                 System.out.println("É B");
                 return true;
             }
             return false;
         }else{
-            if(col.getCartaC().isBloqueado()){
+            if(col.getCartaTres().isBloqueado()){
                 System.out.println("É C");
                 return true;
             }
             return false;
         }
 
+    }
+
+    @Override
+    public void desBloquearCarta(String carta) throws RemoteException {
+        
+        if(carta.equals("A")){
+            col.getCartaUm().setBloqueado(false);
+            System.out.println("Carta A desbloqueada");
+        }else if(carta.equals("B")){
+            col.getCartaDois().setBloqueado(false);
+            System.out.println("Carta B desbloqueada");
+        }else{
+            col.getCartaTres().setBloqueado(false);
+            System.out.println("Carta C desbloqueada");
+        }
+        
+    }
+
+    @Override
+    public String getNomeCartaUm() throws RemoteException {
+        return col.getCartaUm().getNomeCarta();
+    }
+
+    @Override
+    public String getNomeCartaDois() throws RemoteException {
+        return col.getCartaDois().getNomeCarta();
+    }
+
+    @Override
+    public String getNomeCartaTres() throws RemoteException {
+        return col.getCartaTres().getNomeCarta();
     }
     
 }

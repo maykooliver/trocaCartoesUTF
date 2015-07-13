@@ -12,8 +12,14 @@ package trocacartoesutf;
 public class Transacao {
     
     private int id;
-    private String status;
-
+    private int status;
+    public static final int ATIVADO = 1;
+    public static final int FALHADO = 2;
+    public static final int ABORTADO = 3;
+    public static final int EFETIVADOTEMP = 4;
+    public static final int EFETIVADO = 5;
+    
+    
     public Transacao(int id) {
         this.id = id;
         this.ativar();
@@ -23,32 +29,34 @@ public class Transacao {
         return id;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
     
     public void ativar(){
-        this.status = "Ativado";
+        this.status = ATIVADO;
     }
     
-    public boolean efetivado(){
-        return false;
+    public void falha(){
+        this.status = FALHADO;
     }
-        
-    public boolean abortar(){
-        return false;
+    
+    public void abortar(){
+        this.status = ABORTADO;
+    }
+   
+    public void efetivarTemp(){
+        this.status = EFETIVADOTEMP;
+    }
+    
+        public void efetivar(){
+        this.status = EFETIVADO;
     }
 
-    public boolean efetivarTemp(){
-        return false;
-    }
-    
-    public boolean falha(){
-        return false;
-    }
+
 
 }
