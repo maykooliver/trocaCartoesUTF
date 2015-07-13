@@ -53,7 +53,7 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
         
         numTrans = 1000 * numTrans; 
         
-        System.out.println("Transacao: "+numTrans);
+        System.out.println("Numero das transacoes deste cliente: "+numTrans);
         
         ColecionadorView colecionador = new ColecionadorView();
         

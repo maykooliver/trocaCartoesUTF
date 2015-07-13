@@ -18,7 +18,7 @@ public class Colecionador {
     private Carta cartaDois;
     private Carta cartaTres;
     public static final String A = "Paris";
-    public static final String B = "Luxemburgo";
+    public static final String B = "Salta";
     public static final String C = "Madri";
     
     public Colecionador() {
