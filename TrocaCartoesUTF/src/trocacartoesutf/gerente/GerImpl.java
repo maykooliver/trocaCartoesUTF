@@ -101,36 +101,50 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
             if(x & y){
                 requerente.getRefCol().efetivarTempTrans(numTrans);
                 System.out.println("Transação "+ numTrans +" efetivada temporariamente");
+                
+                /*Tenta trocar as cartas e realiza o debloqueio*/
+                try{
+                    boolean w, z;
+                    requerente.getRefCol().desBloquearCarta(sol1[0]);
+                    w = requerente.getRefCol().trocarCartoes(sol1[0], sol2[0]);
+                    requerido.getRefCol().desBloquearCarta(sol2[0]);
+                    z = requerido.getRefCol().trocarCartoes(sol2[0], sol1[0]);
+                    if(w & z){
+
+                        requerente.getRefCol().efetivarTrans(numTrans);
+                        System.out.println("Transação "+ numTrans +" efetivada");
+
+                        System.out.println("\n################################################\n");
+                        System.out.println("\tTransação "+ numTrans +" efetivada");
+                        System.out.println("\n################################################\n");
+
+                    }
+                }catch(RemoteException e){
+                    requerido.getRefCol().falhaTrans(numTrans);
+                }
+                
             }else{
+                
+                
                 requerido.getRefCol().falhaTrans(numTrans);
+                requerente.getRefCol().desBloquearCarta(sol1[0]);
+                requerido.getRefCol().desBloquearCarta(sol2[0]);
                 System.out.println("Transação "+ numTrans +" falhou");
+                
             }
         }else{
-            requerido.getRefCol().abortarTrans(numTrans);
-            System.out.println("Transação "+ numTrans +" abortada");
-        }
-        
-        
-        /*Tenta trocar as cartas e realiza o debloqueio*/
-        try{
-            boolean x, y;
+            
+            requerente.getRefCol().abortarTrans(numTrans);
             requerente.getRefCol().desBloquearCarta(sol1[0]);
-            x = requerente.getRefCol().trocarCartoes(sol1[0], sol2[0]);
             requerido.getRefCol().desBloquearCarta(sol2[0]);
-            y = requerido.getRefCol().trocarCartoes(sol2[0], sol1[0]);
-            if(x & y){
+            System.out.println("Transação "+ numTrans +" abortada");
+                    
+            System.out.println("\n################################################\n");
+            System.out.println("\tTransação "+ numTrans +" abortada");
+            System.out.println("\n################################################\n");
 
-                requerente.getRefCol().efetivarTrans(numTrans);
-                System.out.println("Transação "+ numTrans +" efetivada");
-            }
-        }catch(RemoteException e){
-            requerido.getRefCol().falhaTrans(numTrans);
         }
-        
-        System.out.println("\n################################################\n");
-        System.out.println("\tTransação "+ numTrans +" efetivada");
-        System.out.println("\n################################################\n");
-        
+
         return true;
     }
 

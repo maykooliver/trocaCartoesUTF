@@ -110,7 +110,9 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
         numTrans += 1;
         Transacao novaTrans = new Transacao(numTrans);
         listaTransacao.add(novaTrans);
+        System.out.println("Nova Transacao a ativar: " + numTrans);
         TransacaoMap.put(numTrans, novaTrans);
+        System.out.println("Tamanho da TransacaoMap: "+ TransacaoMap.size());
         return numTrans;
     }
 
@@ -133,6 +135,7 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
 
     @Override
     public boolean abortarTrans(int numeroTrans) throws RemoteException {
+        System.out.println("Numero da transacao a abortar: "+ numeroTrans);
         Transacao trans = TransacaoMap.get(numeroTrans);
         trans.abortar();
         return true;
