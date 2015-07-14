@@ -117,10 +117,14 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
                         System.out.println("\n################################################\n");
                         System.out.println("\tTransação "+ numTrans +" efetivada");
                         System.out.println("\n################################################\n");
+                        
+                        return true;
 
                     }
                 }catch(RemoteException e){
                     requerido.getRefCol().falhaTrans(numTrans);
+                    
+                    return false;
                 }
                 
             }else{
@@ -131,7 +135,12 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
                 requerido.getRefCol().desBloquearCarta(sol2[0]);
                 System.out.println("Transação "+ numTrans +" falhou");
                 
+                return false;
+                
             }
+            
+            return false;
+            
         }else{
             
             requerente.getRefCol().abortarTrans(numTrans);
@@ -142,10 +151,11 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
             System.out.println("\n################################################\n");
             System.out.println("\tTransação "+ numTrans +" abortada");
             System.out.println("\n################################################\n");
+            
+            return false;
 
         }
 
-        return true;
     }
 
     @Override
@@ -179,6 +189,12 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
         }
 
         return resultado;
+    }
+
+    @Override
+    public boolean getTransacao(String col, int numTrans) throws RemoteException {
+        ColecionadorGer colGer = ColecionadorMap.get(col);
+        return colGer.getRefCol().getTransacao(numTrans);
     }
     
 }

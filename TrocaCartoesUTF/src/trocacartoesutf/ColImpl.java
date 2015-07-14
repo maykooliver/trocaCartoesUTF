@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import static trocacartoesutf.Colecionador.A;
 import static trocacartoesutf.Colecionador.B;
 import static trocacartoesutf.Colecionador.C;
+import static trocacartoesutf.Transacao.ABORTADO;
+import static trocacartoesutf.Transacao.FALHADO;
 
 /**
  *
@@ -30,6 +32,8 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     public static ArrayList<Transacao> listaTransacao;
     public static Map<Integer, Transacao> TransacaoMap;
     public static int numTrans;
+    public static ContadorTransacao transCont;
+    public static Thread contThread;
     
     public ColImpl(InterfaceGer ref) throws RemoteException{        
         
@@ -120,6 +124,11 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     public boolean efetivarTempTrans(int numeroTrans) throws RemoteException {
         Transacao trans = TransacaoMap.get(numeroTrans);
         trans.efetivarTemp();
+        
+        transCont = new ContadorTransacao(numeroTrans);
+        contThread = new Thread(transCont);
+        contThread.start();
+        
         return true;
     }
 
@@ -155,10 +164,16 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
         int resposta = JOptionPane.showConfirmDialog(null, 
                 "Deseja trocar a sua carta "+cartaCol+" pela carta "+cartaTer+"?" , "Solicitação de troca", JOptionPane.YES_NO_OPTION);
 
+        String sol[] = cartaTer.split("-");
+        
         if (resposta == JOptionPane.YES_OPTION) {
-           aceito =  true;
+            if(refGer.getTransacao(sol[1], numTrans)){
+               aceito =  true;
+            }else{
+                aceito = false;
+            }
         } else if (resposta == JOptionPane.NO_OPTION) {
-           aceito =  false;
+            aceito =  false;
         }
 
         return aceito;
@@ -215,6 +230,15 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     @Override
     public String getNomeCartaTres() throws RemoteException {
         return col.getCartaTres().getNomeCarta();
+    }
+
+    @Override
+    public boolean getTransacao(int numTrans) throws RemoteException {
+        Transacao trans = TransacaoMap.get(numTrans);
+        /*if(trans.getStatus() == ABORTADO || trans.getStatus() == FALHADO){
+            return false;
+        }*/
+        return true;
     }
     
 }

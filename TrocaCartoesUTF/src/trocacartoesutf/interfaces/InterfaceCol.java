@@ -44,4 +44,6 @@ public interface InterfaceCol extends Remote {
     
     public boolean isBloqueadoCarta(String Y) throws RemoteException;
     
+    public boolean getTransacao(int numTrans) throws RemoteException;
+    
 }
