@@ -91,14 +91,14 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
             return false;
         }
         
-        
+        boolean x, y;
+        x = requerente.getRefCol().bloquearCarta(sol1[0]);
+        y = requerido.getRefCol().bloquearCarta(sol2[0]);
         /*Verifica a aceitação do requerido
         Se for aceita, efetiva transação temporariamente*/
-        if(aceitaTroca(requerido, solicitado, solicitante, numTrans)){
-            boolean x, y;
-            x = requerente.getRefCol().bloquearCarta(sol1[0]);
-            y = requerido.getRefCol().bloquearCarta(sol1[0]);
-            if(x & y){
+        if(x & y ){
+
+            if(aceitaTroca(requerido, solicitado, solicitante, numTrans)){
                 requerente.getRefCol().efetivarTempTrans(numTrans);
 
                 /*Tenta trocar as cartas e realiza o debloqueio*/
@@ -145,7 +145,7 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
             requerente.getRefCol().desBloquearCarta(sol1[0]);
             requerido.getRefCol().desBloquearCarta(sol2[0]);
             
-            requerente.getRefCol().abortarTrans(numTrans);
+            requerente.getRefCol().falhaTrans(numTrans);
 
             return false;
 
@@ -231,18 +231,17 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
             return false;
         }
         
-        
+        boolean x, y, w, z;
+        x = requerente.getRefCol().bloquearCarta(sol1[0]);
+        y = requerido.getRefCol().bloquearCarta(sol2[0]);
+        w = requerenteCasada.getRefCol().bloquearCarta(sol3[0]);
+        z = requeridoCasada.getRefCol().bloquearCarta(sol4[0]);
         /*Verifica a aceitação do requerido
         Se for aceita, efetiva transação temporariamente*/
-        if(aceitaTroca(requerido, solicitado, solicitante, numTrans) 
-                & aceitaTroca(requeridoCasada, solicitadoCasada, solicitanteCasada, numTrans))
+        if(x & y & w & z)
         {
-            boolean x, y, w, z;
-            x = requerente.getRefCol().bloquearCarta(sol1[0]);
-            y = requerido.getRefCol().bloquearCarta(sol1[0]);
-            w = requerenteCasada.getRefCol().bloquearCarta(sol3[0]);
-            z = requeridoCasada.getRefCol().bloquearCarta(sol4[0]);
-            if(x & y & w & z)
+            if(aceitaTroca(requerido, solicitado, solicitante, numTrans) 
+                & aceitaTroca(requeridoCasada, solicitadoCasada, solicitanteCasada, numTrans))
             {
                 requerente.getRefCol().efetivarTempTrans(numTrans);
 
@@ -302,7 +301,12 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
             
         }else{
             
-            requerente.getRefCol().abortarTrans(numTrans);
+            requerente.getRefCol().desBloquearCarta(sol1[0]);
+            requerido.getRefCol().desBloquearCarta(sol2[0]);
+            requerenteCasada.getRefCol().desBloquearCarta(sol3[0]);
+            requeridoCasada.getRefCol().desBloquearCarta(sol4[0]);
+            
+            requerente.getRefCol().falhaTrans(numTrans);
 
             return false;
 
