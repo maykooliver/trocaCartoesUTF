@@ -26,7 +26,7 @@ public class ContadorTransacao implements Runnable{
     public void run() {
         try {
 
-            Thread.sleep(7000);
+            Thread.sleep(10000);
             Transacao trans = TransacaoMap.get(numTrans);
             if(trans.getStatus() != EFETIVADO){
                 trans.abortar();

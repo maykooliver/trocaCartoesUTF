@@ -83,6 +83,11 @@ public class ColecionadorView extends javax.swing.JFrame {
         });
 
         btnTrocarCartasCasadas.setText("Troca Casada");
+        btnTrocarCartasCasadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrocarCartasCasadasActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Cartas Colecionadas:");
 
@@ -253,6 +258,17 @@ public class ColecionadorView extends javax.swing.JFrame {
         EstadoTransacoesView SubMenuPro = new EstadoTransacoesView(this, true);
         SubMenuPro.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnTrocarCartasCasadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrocarCartasCasadasActionPerformed
+        String cartaCol = cartasCombo.getSelectedItem().toString();
+        String cartaTerc = colecaoTerceiros.getSelectedItem().toString();
+        String cartaCasadaCol = cartasCasadasCombo.getSelectedItem().toString();
+        String cartaCasadaTerc = colecaoCasadaTerceiros.getSelectedItem().toString();
+
+        TrocaCasada troca = new TrocaCasada(cartaCol, cartaTerc, cartaCasadaCol, cartaCasadaTerc);
+        Thread trocaThread = new Thread(troca);
+        trocaThread.start();
+    }//GEN-LAST:event_btnTrocarCartasCasadasActionPerformed
 
     /**
      * @param args the command line arguments

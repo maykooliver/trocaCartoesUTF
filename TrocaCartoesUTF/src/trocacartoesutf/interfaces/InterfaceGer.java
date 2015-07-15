@@ -20,6 +20,8 @@ public interface InterfaceGer extends Remote{
     
     public boolean trocaSimples(String solicitante, String solicitado) throws RemoteException;
     
+    public boolean trocaCasada(String solicitante, String solicitado, String solicitanteCasada, String solicitadoCasada) throws RemoteException;
+    
     public boolean getTransacao(String col, int numTrans) throws RemoteException;
     
 }
