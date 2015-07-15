@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import trocacartoesutf.interfaces.InterfaceGer;
 
 /**
@@ -265,9 +266,13 @@ public class ColecionadorView extends javax.swing.JFrame {
         String cartaCasadaCol = cartasCasadasCombo.getSelectedItem().toString();
         String cartaCasadaTerc = colecaoCasadaTerceiros.getSelectedItem().toString();
 
-        TrocaCasada troca = new TrocaCasada(cartaCol, cartaTerc, cartaCasadaCol, cartaCasadaTerc);
-        Thread trocaThread = new Thread(troca);
-        trocaThread.start();
+        if(cartaCol.equals(cartaCasadaCol) || cartaTerc.equals(cartaCasadaTerc)){
+            JOptionPane.showMessageDialog(null, "Não é possível trocar uma mesma carta por duas.");
+        }else{
+            TrocaCasada troca = new TrocaCasada(cartaCol, cartaTerc, cartaCasadaCol, cartaCasadaTerc);
+            Thread trocaThread = new Thread(troca);
+            trocaThread.start();
+        }
     }//GEN-LAST:event_btnTrocarCartasCasadasActionPerformed
 
     /**
