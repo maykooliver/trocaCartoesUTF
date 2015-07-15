@@ -5,7 +5,6 @@
  */
 package trocacartoesutf;
 
-import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static trocacartoesutf.ColImpl.TransacaoMap;
@@ -31,6 +30,7 @@ public class ContadorTransacao implements Runnable{
             Transacao trans = TransacaoMap.get(numTrans);
             if(trans.getStatus() != EFETIVADO){
                 trans.abortar();
+                System.out.println("\nESTADO TRANSACAO NA THREAD "+ trans.getStatus());
             }
            
         } catch (InterruptedException ex) {

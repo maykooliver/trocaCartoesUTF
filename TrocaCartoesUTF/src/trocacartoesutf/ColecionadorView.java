@@ -239,8 +239,11 @@ public class ColecionadorView extends javax.swing.JFrame {
         colecaoCasadaTerceiros.removeAllItems();
         
         for(String cartaTerceiros:colecoesDeTerceiros){
-            colecaoTerceiros.addItem(cartaTerceiros);
-            colecaoCasadaTerceiros.addItem(cartaTerceiros);
+            String sol1[] = cartaTerceiros.split("-");
+            if(!sol1[1].equals(ColImpl.col.getNomeCol())){
+                colecaoTerceiros.addItem(cartaTerceiros);
+                colecaoCasadaTerceiros.addItem(cartaTerceiros);
+            }
         }
         
     }//GEN-LAST:event_btnAtualizarCartasActionPerformed

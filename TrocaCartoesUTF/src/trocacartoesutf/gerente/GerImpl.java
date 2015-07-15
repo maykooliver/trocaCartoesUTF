@@ -94,14 +94,13 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
         
         /*Verifica a aceitação do requerido
         Se for aceita, efetiva transação temporariamente*/
-        if(aceitaTroca(requerido, solicitado, solicitante)){
+        if(aceitaTroca(requerido, solicitado, solicitante, numTrans)){
             boolean x, y;
             x = requerente.getRefCol().bloquearCarta(sol1[0]);
             y = requerido.getRefCol().bloquearCarta(sol1[0]);
             if(x & y){
                 requerente.getRefCol().efetivarTempTrans(numTrans);
-                System.out.println("Transação "+ numTrans +" efetivada temporariamente");
-                
+
                 /*Tenta trocar as cartas e realiza o debloqueio*/
                 try{
                     boolean w, z;
@@ -112,12 +111,7 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
                     if(w & z){
 
                         requerente.getRefCol().efetivarTrans(numTrans);
-                        System.out.println("Transação "+ numTrans +" efetivada");
 
-                        System.out.println("\n################################################\n");
-                        System.out.println("\tTransação "+ numTrans +" efetivada");
-                        System.out.println("\n################################################\n");
-                        
                         return true;
 
                     }
@@ -133,8 +127,7 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
                 requerido.getRefCol().falhaTrans(numTrans);
                 requerente.getRefCol().desBloquearCarta(sol1[0]);
                 requerido.getRefCol().desBloquearCarta(sol2[0]);
-                System.out.println("Transação "+ numTrans +" falhou");
-                
+
                 return false;
                 
             }
@@ -146,12 +139,7 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
             requerente.getRefCol().abortarTrans(numTrans);
             requerente.getRefCol().desBloquearCarta(sol1[0]);
             requerido.getRefCol().desBloquearCarta(sol2[0]);
-            System.out.println("Transação "+ numTrans +" abortada");
-                    
-            System.out.println("\n################################################\n");
-            System.out.println("\tTransação "+ numTrans +" abortada");
-            System.out.println("\n################################################\n");
-            
+
             return false;
 
         }
@@ -178,12 +166,12 @@ public class GerImpl  extends UnicastRemoteObject implements InterfaceGer, Runna
         
     }
     
-    public boolean aceitaTroca(ColecionadorGer requerido, String cartaSolicitada, String cartaATrocar){
+    public boolean aceitaTroca(ColecionadorGer requerido, String cartaSolicitada, String cartaATrocar, int transNum){
         
         boolean resultado = false;
         
         try {
-            resultado = requerido.getRefCol().verificaAceite(cartaSolicitada, cartaATrocar);
+            resultado = requerido.getRefCol().verificaAceite(cartaSolicitada, cartaATrocar, transNum);
         } catch (RemoteException ex) {
             Logger.getLogger(GerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

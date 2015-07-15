@@ -117,6 +117,12 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
         System.out.println("Nova Transacao a ativar: " + numTrans);
         TransacaoMap.put(numTrans, novaTrans);
         System.out.println("Tamanho da TransacaoMap: "+ TransacaoMap.size());
+        
+        ContadorTransacao contTrans = new ContadorTransacao(numTrans);
+        Thread contThread = new Thread(contTrans);
+        contThread.start();
+        System.out.println("Thread contadora da transação, iniciada.");
+        
         return numTrans;
     }
 
@@ -128,6 +134,8 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
         transCont = new ContadorTransacao(numeroTrans);
         contThread = new Thread(transCont);
         contThread.start();
+        
+        System.out.println("Transação "+ numeroTrans +" efetivada temporariamente");
         
         return true;
     }
@@ -147,6 +155,9 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
         System.out.println("Numero da transacao a abortar: "+ numeroTrans);
         Transacao trans = TransacaoMap.get(numeroTrans);
         trans.abortar();
+        System.out.println("\n################################################\n");
+        System.out.println("\tTransação "+ numeroTrans +" abortada");
+        System.out.println("\n################################################\n");
         return true;
     }
 
@@ -154,12 +165,17 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     public boolean falhaTrans(int numeroTrans) throws RemoteException {
         Transacao trans = TransacaoMap.get(numeroTrans);
         trans.falha();
+        System.out.println("\n################################################\n");
+        System.out.println("\tTransação "+ numeroTrans +" falhou");
+        System.out.println("\n################################################\n");
         return true;
     }
 
     @Override
-    public boolean verificaAceite(String cartaCol, String cartaTer) throws RemoteException {
+    public boolean verificaAceite(String cartaCol, String cartaTer, int transacaoNum) throws RemoteException {
         boolean aceito = false;
+        
+        String nome = this.col.getNomeCol();
         
         int resposta = JOptionPane.showConfirmDialog(null, 
                 "Deseja trocar a sua carta "+cartaCol+" pela carta "+cartaTer+"?" , "Solicitação de troca", JOptionPane.YES_NO_OPTION);
@@ -167,10 +183,12 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
         String sol[] = cartaTer.split("-");
         
         if (resposta == JOptionPane.YES_OPTION) {
-            if(refGer.getTransacao(sol[1], numTrans)){
+            System.out.println("COMBO RESPOSTA (Verifica Aceite), COLECIONADOR:" + sol[1] + " TRANSACAO:" + transacaoNum);
+            if(refGer.getTransacao(sol[1], transacaoNum)){
                aceito =  true;
             }else{
                 aceito = false;
+                JOptionPane.showMessageDialog(null, "Transação abortada. Tempo excedido.");
             }
         } else if (resposta == JOptionPane.NO_OPTION) {
             aceito =  false;
@@ -235,9 +253,10 @@ public class ColImpl extends UnicastRemoteObject implements InterfaceCol{
     @Override
     public boolean getTransacao(int numTrans) throws RemoteException {
         Transacao trans = TransacaoMap.get(numTrans);
-        /*if(trans.getStatus() == ABORTADO || trans.getStatus() == FALHADO){
+        System.out.println("GET TRANSACAO - Numero da Transacao: " + numTrans);
+        if(trans.getStatus() == ABORTADO || trans.getStatus() == FALHADO){
             return false;
-        }*/
+        }
         return true;
     }
     

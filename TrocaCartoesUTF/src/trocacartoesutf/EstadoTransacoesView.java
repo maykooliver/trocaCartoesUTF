@@ -40,13 +40,28 @@ public class EstadoTransacoesView extends javax.swing.JDialog {
     
     private void carregaDados(){
         int i = 0;
+        String status = "";
         
         for(Transacao transacao: ColImpl.listaTransacao){
-            model.addRow(new Object[]{
-                transacao.getId(),
-                transacao.getStatus()
-                
-            });
+            switch(transacao.getStatus()){
+                case 1:
+                    status = "ATIVADO";
+                    break;
+                case 2:
+                    status = "FALHADO";
+                    break;
+                case 3:
+                    status = "ABORTADO";
+                    break;
+                case 4:
+                    status = "EFETIVADO TEMP.";
+                    break;
+                case 5:
+                    status = "EFETIVADO";
+                    break;
+            }
+
+            model.addRow(new Object[]{transacao.getId(),status});
         }
     }
 
@@ -128,8 +143,7 @@ public class EstadoTransacoesView extends javax.swing.JDialog {
     public Integer getId(){
         return id;
     }
-    
-    
+        
     
     private void CANCELARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CANCELARActionPerformed
         // TODO add your handling code here:

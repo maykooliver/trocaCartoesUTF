@@ -26,7 +26,7 @@ public interface InterfaceCol extends Remote {
     
     public boolean trocarCartoes(String cartaTrocada, String cartaRecebida) throws RemoteException;
     
-    public boolean verificaAceite(String cartaCol, String cartaTer) throws RemoteException;
+    public boolean verificaAceite(String cartaCol, String cartaTer, int transacaoNum) throws RemoteException;
     
     public boolean bloquearCarta(String carta) throws RemoteException;
     
